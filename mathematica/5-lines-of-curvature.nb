@@ -1,0 +1,532 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     19675,        524]
+NotebookOptionsPosition[     17583,        489]
+NotebookOutlinePosition[     17979,        505]
+CellTagsIndexPosition[     17936,        502]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Lines of Curvature", "Title",
+ CellChangeTimes->{{3.98101506507034*^9, 
+  3.981015068714316*^9}},ExpressionUUID->"39716ff7-f513-4a6a-98c6-\
+db6f831c86fa"],
+
+Cell["\<\
+This will create a `Manipulate` and video of the surface unfolding with the \
+lines of curvature shown.\
+\>", "Text",
+ CellChangeTimes->{{3.981015072756936*^9, 
+  3.98101510516282*^9}},ExpressionUUID->"33dfcdad-ccfc-433e-a821-\
+b929e82dadae"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"NotebookEvaluate", "[", "\n", 
+   RowBox[{
+    RowBox[{"FileNameJoin", "[", 
+     RowBox[{
+      RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<4-grid.nb\>\""}], 
+     "]"}], ",", "\n", " ", 
+    RowBox[{"EvaluationElements", "->", " ", "\"\<InitializationCell\>\""}]}],
+    "\n", " ", "]"}], ";"}]], "Code",
+ CellChangeTimes->{{3.981015115122088*^9, 3.981015118893529*^9}, {
+  3.981994452469666*^9, 3.981994460338299*^9}},
+ CellLabel->
+  "In[135]:=",ExpressionUUID->"0fd4c600-5dc5-4ea3-ad9c-e390991e5475"],
+
+Cell["Start with the fixed-t lines (the tangents).", "Text",
+ CellChangeTimes->{{3.9810154060481453`*^9, 
+  3.981015417660964*^9}},ExpressionUUID->"bcee8e3a-d24f-4544-adfd-\
+fd83aa658d18"],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ParametricPlot3D", "[", 
+    RowBox[{"r", ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", 
+       RowBox[{"-", "8"}], ",", "8"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"v", ",", 
+       RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+     RowBox[{"PlotRange", "->", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "4"}], ",", "4"}], "}"}]}], ",", " ", 
+     RowBox[{"Mesh", "->", "None"}], ",", 
+     RowBox[{"Axes", "->", "False"}], ",", 
+     RowBox[{"PlotPoints", "->", "40"}]}], "\[IndentingNewLine]", "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ParametricPlot3D", "[", 
+    RowBox[{"f", ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", 
+       RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+     RowBox[{"PlotStyle", "->", "Green"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ParametricPlot3D", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"r", "/.", 
+        RowBox[{"t", "->", "i"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", 
+         RowBox[{"-", "8"}], ",", "8"}], "}"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"v", ",", 
+       RowBox[{"-", "5"}], ",", "5"}], "}"}]}], "]"}]}], 
+  "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->{{3.981015156314395*^9, 3.981015530125128*^9}},
+ CellLabel->
+  "In[611]:=",ExpressionUUID->"f2909173-417c-4b17-a7de-88c98bc74857"],
+
+Cell["\<\
+We can then solve the DE giving orthogonal trajectories to the rulings on the \
+surface to get v in terms of t along the other set of lines of curvature.\
+\>", "Text",
+ CellChangeTimes->{{3.981017170896163*^9, 
+  3.981017247444654*^9}},ExpressionUUID->"fbae4ad1-b07c-41bf-a8a2-\
+970e69ed8b91"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ClearAll", "[", "b", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.981896383823366*^9, 3.981896386942415*^9}},
+ CellLabel->
+  "In[356]:=",ExpressionUUID->"ea49cb60-e10d-4102-a8cd-01c1a8bb886e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"vLOC", "=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"b", "-", "t", "-", 
+      RowBox[{
+       RowBox[{"t", "^", "3"}], "/", "3"}]}], ")"}], "/", 
+    RowBox[{"(", 
+     RowBox[{"1", "+", 
+      RowBox[{"t", "^", "2"}]}], ")"}]}]}], ";"}]], "Code",
+ CellChangeTimes->{{3.981017253413433*^9, 3.981017308111094*^9}, {
+  3.9810174931811666`*^9, 3.98101749372892*^9}},
+ CellLabel->
+  "In[133]:=",ExpressionUUID->"b11e3db7-9c58-460f-9ea6-686c1d1a18f3"],
+
+Cell["Confirming that these are orthogonal to the rulings.", "Text",
+ CellChangeTimes->{{3.9810173499155893`*^9, 
+  3.9810173705754547`*^9}},ExpressionUUID->"339b7bf8-11b9-4b91-a1b7-\
+8e1a3f48f24e"],
+
+Cell[BoxData[
+ RowBox[{"Simplify", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"D", "[", 
+     RowBox[{"r", ",", "v"}], "]"}], ".", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{"r", ",", "t"}], "]"}], "+", 
+      RowBox[{
+       RowBox[{"D", "[", 
+        RowBox[{"r", ",", "v"}], "]"}], "*", 
+       RowBox[{"D", "[", 
+        RowBox[{"vLOC", ",", "t"}], "]"}]}]}], ")"}]}], "/.", 
+   RowBox[{"v", "->", "vLOC"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.9810174048146467`*^9, 3.981017478356401*^9}, {
+  3.981017515173213*^9, 3.9810175330960703`*^9}},
+ CellLabel->
+  "In[618]:=",ExpressionUUID->"a3ec9add-e6d5-409a-9f28-b47709f0fd93"],
+
+Cell["\<\
+Useful for other calculations will be finding the value of b where these \
+lines of curvature meet the twisted cubic; that is, solving for b when vLOC=0 \
+for a given t.\
+\>", "Text",
+ CellChangeTimes->{{3.981947338684051*^9, 3.981947400267151*^9}, {
+  3.981948227716064*^9, 
+  3.981948236130878*^9}},ExpressionUUID->"c0167b71-d46b-4f3a-9b62-\
+7935ead09de6"],
+
+Cell[BoxData[
+ RowBox[{"tAtCurve", "=", 
+  RowBox[{
+   RowBox[{"NSolve", "[", 
+    RowBox[{
+     RowBox[{"b", "==", 
+      RowBox[{"t", "+", 
+       RowBox[{
+        RowBox[{"t", "^", "3"}], "/", "3"}]}]}], ",", "t"}], "]"}], "[", 
+   RowBox[{"[", 
+    RowBox[{"1", ",", "1", ",", "2"}], "]"}], "]"}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.9819474058319073`*^9, 3.981947488190659*^9}, 
+   3.981947594242199*^9, {3.981947679619667*^9, 3.981947701253912*^9}, {
+   3.981948048538042*^9, 3.9819480560312*^9}, {3.9819480950979633`*^9, 
+   3.981948095449648*^9}, {3.9819482405451*^9, 3.9819482482441463`*^9}, {
+   3.981948938969535*^9, 3.981948965670392*^9}, {3.981949148016416*^9, 
+   3.9819491483920727`*^9}},
+ CellLabel->
+  "In[134]:=",ExpressionUUID->"6ab2d168-e72e-42bd-96ce-31f07b7a0ef6"],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ParametricPlot3D", "[", 
+    RowBox[{"r", ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", 
+       RowBox[{"-", "8"}], ",", "8"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"v", ",", 
+       RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+     RowBox[{"PlotRange", "->", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "4"}], ",", "4"}], "}"}]}], ",", " ", 
+     RowBox[{"Mesh", "->", "None"}], ",", 
+     RowBox[{"Axes", "->", "False"}], ",", 
+     RowBox[{"PlotPoints", "->", "40"}]}], "\[IndentingNewLine]", "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ParametricPlot3D", "[", 
+    RowBox[{"f", ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", 
+       RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+     RowBox[{"PlotStyle", "->", "Green"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ParametricPlot3D", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"r", "/.", 
+        RowBox[{"t", "->", "i"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", 
+         RowBox[{"-", "8"}], ",", "8"}], "}"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"v", ",", 
+       RowBox[{"-", "5"}], ",", "5"}], "}"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ParametricPlot3D", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"r", "/.", 
+        RowBox[{"v", "->", "vLOC"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"b", ",", 
+         RowBox[{"-", "8"}], ",", "8"}], "}"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", 
+       RowBox[{"-", "8"}], ",", "8"}], "}"}], ",", 
+     RowBox[{"PlotStyle", "->", "Red"}]}], "]"}]}], "\[IndentingNewLine]", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.981015156314395*^9, 3.981015530125128*^9}, {
+  3.981017559061108*^9, 3.9810176345353003`*^9}},
+ CellLabel->
+  "In[621]:=",ExpressionUUID->"0dcaaf5f-a8da-40e8-9f34-cea0ae9a7de0"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"fff", "[", 
+     RowBox[{"1", "/", "2"}], "]"}], "[", "t", "]"}], "/.", "paramfInterp"}], 
+  "/.", 
+  RowBox[{"t", "->", "2"}]}]], "Input",
+ CellChangeTimes->{{3.9810185223821774`*^9, 3.9810185390336*^9}, {
+  3.981018596201873*^9, 3.981018609153797*^9}},
+ CellLabel->
+  "In[643]:=",ExpressionUUID->"981bb726-e255-4c49-9a1b-a91519232b81"],
+
+Cell[BoxData[
+ RowBox[{"tangCF", "/.", 
+  RowBox[{"alpha", "->", "0"}]}]], "Input",
+ CellChangeTimes->{{3.981019795466528*^9, 3.9810198243158903`*^9}},
+ CellLabel->
+  "In[655]:=",ExpressionUUID->"80d352d6-7293-49e2-b836-2bbbbadf1e7b"],
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Show", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"ParametricPlot3D", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"fff", "[", "a", "]"}], "[", "t", "]"}], "/.", 
+          "paramfInterp"}], ")"}], "+", 
+        RowBox[{"v", "*", "speed", "*", 
+         RowBox[{"(", 
+          RowBox[{"tangCF", "/.", 
+           RowBox[{"alpha", "->", "a"}]}], ")"}]}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", 
+         RowBox[{"-", "8"}], ",", "8"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"v", ",", 
+         RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+       RowBox[{"PlotRange", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "4"}], ",", "4"}], "}"}]}], ",", " ", 
+       RowBox[{"Mesh", "->", "None"}], ",", 
+       RowBox[{"Axes", "->", "False"}], ",", 
+       RowBox[{"PlotPoints", "->", "10"}]}], "\[IndentingNewLine]", "]"}], ",",
+      "\[IndentingNewLine]", 
+     RowBox[{"ParametricPlot3D", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"fff", "[", "a", "]"}], "[", "t", "]"}], "/.", 
+        "paramfInterp"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", 
+         RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+       RowBox[{"PlotStyle", "->", "Green"}]}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"ParametricPlot3D", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Table", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"fff", "[", "a", "]"}], "[", "i", "]"}], "/.", 
+             "paramfInterp"}], ")"}], "+", 
+           RowBox[{"(", 
+            RowBox[{"v", "*", "speed", "*", 
+             RowBox[{"(", 
+              RowBox[{"tangCF", "/.", 
+               RowBox[{"alpha", "->", "a"}]}], ")"}]}], ")"}]}], "/.", 
+          RowBox[{"t", "->", "i"}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", 
+           RowBox[{"-", "8"}], ",", "8", ",", "0.5"}], "}"}]}], 
+        "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"v", ",", 
+         RowBox[{"-", "5"}], ",", "5"}], "}"}]}], "\[IndentingNewLine]", 
+      "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ParametricPlot3D", "[", 
+      RowBox[{
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"fff", "[", "a", "]"}], "[", "t", "]"}], "/.", 
+            "paramfInterp"}], ")"}], "+", 
+          RowBox[{"(", 
+           RowBox[{"vLOC", "*", "speed", "*", 
+            RowBox[{"(", 
+             RowBox[{"tangCF", "/.", 
+              RowBox[{"alpha", "->", "a"}]}], ")"}]}], ")"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"b", ",", 
+           RowBox[{"-", "8"}], ",", "8"}], "}"}]}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", 
+         RowBox[{"-", "8"}], ",", "8"}], "}"}], ",", 
+       RowBox[{"PlotStyle", "->", "Red"}]}], "]"}]}], "\[IndentingNewLine]", 
+    "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{"a", ",", "0", ",", "1"}], "}"}]}], "\[IndentingNewLine]", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.981015156314395*^9, 3.981015530125128*^9}, {
+   3.981017559061108*^9, 3.981017666592314*^9}, {3.981017702964527*^9, 
+   3.981017807993779*^9}, {3.981017860294219*^9, 3.981017903996364*^9}, {
+   3.981017947046113*^9, 3.9810179947901917`*^9}, 3.981018097536572*^9, {
+   3.981018154270917*^9, 3.9810181551664963`*^9}, {3.981018208446435*^9, 
+   3.981018241868659*^9}, {3.981018326108086*^9, 3.981018407024796*^9}, {
+   3.98101844379072*^9, 3.981018499106262*^9}, {3.9810185442868853`*^9, 
+   3.981018548367497*^9}, {3.981018619853911*^9, 3.981018664477398*^9}, {
+   3.981018709312139*^9, 3.981018715204384*^9}, {3.981018756526366*^9, 
+   3.9810188011637793`*^9}, 3.981018834548609*^9, {3.981019744863531*^9, 
+   3.9810197525590057`*^9}, {3.9810198608809347`*^9, 3.981020034874776*^9}, {
+   3.9810200810611887`*^9, 3.9810200826554193`*^9}},
+ CellLabel->
+  "In[346]:=",ExpressionUUID->"d04c24d8-ad27-480f-9eb3-0009c9379b57"],
+
+Cell["This will be slow!", "Text",
+ CellChangeTimes->{{3.981020124540141*^9, 
+  3.9810201275992117`*^9}},ExpressionUUID->"d256bba7-b7de-43ce-b293-\
+635ab24c34a9"],
+
+Cell[BoxData[
+ RowBox[{"anim", "=", 
+  RowBox[{"AnimationVideo", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Show", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"ParametricPlot3D", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"fff", "[", "a", "]"}], "[", "t", "]"}], "/.", 
+           "paramfInterp"}], ")"}], "+", 
+         RowBox[{"v", "*", "speed", "*", 
+          RowBox[{"(", 
+           RowBox[{"tangCF", "/.", 
+            RowBox[{"alpha", "->", "a"}]}], ")"}]}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", 
+          RowBox[{"-", "8"}], ",", "8"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"v", ",", 
+          RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+        RowBox[{"PlotRange", "->", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "4"}], ",", "4"}], "}"}]}], ",", " ", 
+        RowBox[{"Mesh", "->", "None"}], ",", 
+        RowBox[{"Axes", "->", "False"}], ",", 
+        RowBox[{"PlotPoints", "->", "40"}]}], "\[IndentingNewLine]", "]"}], ",",
+       "\[IndentingNewLine]", 
+      RowBox[{"ParametricPlot3D", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"fff", "[", "a", "]"}], "[", "t", "]"}], "/.", 
+         "paramfInterp"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", 
+          RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+        RowBox[{"PlotStyle", "->", "Green"}], ",", 
+        RowBox[{"PlotPoints", "->", "40"}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"ParametricPlot3D", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Table", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"fff", "[", "a", "]"}], "[", "i", "]"}], "/.", 
+              "paramfInterp"}], ")"}], "+", 
+            RowBox[{"(", 
+             RowBox[{"v", "*", "speed", "*", 
+              RowBox[{"(", 
+               RowBox[{"tangCF", "/.", 
+                RowBox[{"alpha", "->", "a"}]}], ")"}]}], ")"}]}], "/.", 
+           RowBox[{"t", "->", "i"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", 
+            RowBox[{"-", "8"}], ",", "8", ",", "0.5"}], "}"}]}], 
+         "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"v", ",", 
+          RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+        RowBox[{"PlotPoints", "->", "40"}]}], "\[IndentingNewLine]", "]"}], ",",
+       "\[IndentingNewLine]", 
+      RowBox[{"ParametricPlot3D", "[", 
+       RowBox[{
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"fff", "[", "a", "]"}], "[", "t", "]"}], "/.", 
+             "paramfInterp"}], ")"}], "+", 
+           RowBox[{"(", 
+            RowBox[{"vLOC", "*", "speed", "*", 
+             RowBox[{"(", 
+              RowBox[{"tangCF", "/.", 
+               RowBox[{"alpha", "->", "a"}]}], ")"}]}], ")"}]}], ",", 
+          RowBox[{"{", 
+           RowBox[{"b", ",", 
+            RowBox[{"-", "8"}], ",", "8"}], "}"}]}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", 
+          RowBox[{"-", "8"}], ",", "8"}], "}"}], ",", 
+        RowBox[{"PlotStyle", "->", "Red"}], ",", 
+        RowBox[{"PlotPoints", "->", "40"}]}], "]"}]}], "\[IndentingNewLine]", 
+     "]"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"a", ",", "0", ",", "1", ",", 
+      RowBox[{"1", "/", "251"}]}], "}"}], ",", 
+    RowBox[{"FrameRate", "->", "25"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.981020120476619*^9, 3.98102017498699*^9}},
+ CellLabel->
+  "In[663]:=",ExpressionUUID->"899ee024-dd90-4128-ac44-b4188b069a36"],
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\</Users/sspaul2/Desktop/Math/Research/Illustration/Pierre \
+Surface/loc-video.mp4\>\"", ",", "anim"}], "]"}]], "Input",
+ CellChangeTimes->{{3.9810242601580544`*^9, 3.981024293195763*^9}},
+ CellLabel->
+  "In[664]:=",ExpressionUUID->"c7345a1e-d3ca-4ffa-aed3-89fb17d217ba"]
+}, Open  ]]
+},
+WindowSize->{808, 673},
+WindowMargins->{{50, Automatic}, {Automatic, 0}},
+FrontEndVersion->"14.2 for Mac OS X ARM (64-bit) (December 26, 2024)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"f789c85a-f6c4-4ea8-80cf-98c6587fe64e"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 160, 3, 96, "Title",ExpressionUUID->"39716ff7-f513-4a6a-98c6-db6f831c86fa"],
+Cell[739, 27, 252, 6, 33, "Text",ExpressionUUID->"33dfcdad-ccfc-433e-a821-b929e82dadae"],
+Cell[994, 35, 545, 13, 107, "Code",ExpressionUUID->"0fd4c600-5dc5-4ea3-ad9c-e390991e5475"],
+Cell[1542, 50, 188, 3, 33, "Text",ExpressionUUID->"bcee8e3a-d24f-4544-adfd-fd83aa658d18"],
+Cell[1733, 55, 1451, 41, 151, "Input",ExpressionUUID->"f2909173-417c-4b17-a7de-88c98bc74857"],
+Cell[3187, 98, 303, 6, 55, "Text",ExpressionUUID->"fbae4ad1-b07c-41bf-a8a2-970e69ed8b91"],
+Cell[3493, 106, 228, 5, 29, "Input",ExpressionUUID->"ea49cb60-e10d-4102-a8cd-01c1a8bb886e"],
+Cell[3724, 113, 486, 14, 51, "Code",ExpressionUUID->"b11e3db7-9c58-460f-9ea6-686c1d1a18f3"],
+Cell[4213, 129, 198, 3, 33, "Text",ExpressionUUID->"339b7bf8-11b9-4b91-a1b7-8e1a3f48f24e"],
+Cell[4414, 134, 660, 19, 29, "Input",ExpressionUUID->"a3ec9add-e6d5-409a-9f28-b47709f0fd93"],
+Cell[5077, 155, 368, 8, 55, "Text",ExpressionUUID->"c0167b71-d46b-4f3a-9b62-7935ead09de6"],
+Cell[5448, 165, 811, 19, 45, "Input",ExpressionUUID->"6ab2d168-e72e-42bd-96ce-31f07b7a0ef6",
+ InitializationCell->True],
+Cell[6262, 186, 1957, 56, 172, "Input",ExpressionUUID->"0dcaaf5f-a8da-40e8-9f34-cea0ae9a7de0"],
+Cell[8222, 244, 397, 11, 29, "Input",ExpressionUUID->"981bb726-e255-4c49-9a1b-a91519232b81"],
+Cell[8622, 257, 234, 5, 29, "Input",ExpressionUUID->"80d352d6-7293-49e2-b836-2bbbbadf1e7b"],
+Cell[8859, 264, 4327, 106, 376, "Input",ExpressionUUID->"d04c24d8-ad27-480f-9eb3-0009c9379b57"],
+Cell[13189, 372, 162, 3, 33, "Text",ExpressionUUID->"d256bba7-b7de-43ce-b293-635ab24c34a9"],
+Cell[13354, 377, 3887, 101, 417, "Input",ExpressionUUID->"899ee024-dd90-4128-ac44-b4188b069a36"],
+Cell[17244, 480, 323, 6, 49, "Input",ExpressionUUID->"c7345a1e-d3ca-4ffa-aed3-89fb17d217ba"]
+}, Open  ]]
+}
+]
+*)
+

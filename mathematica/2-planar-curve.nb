@@ -1,0 +1,251 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[      9483,        243]
+NotebookOptionsPosition[      7742,        207]
+NotebookOutlinePosition[      8139,        223]
+CellTagsIndexPosition[      8096,        220]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Planar Curve", "Title",
+ CellChangeTimes->{{3.978276260358824*^9, 3.978276273949975*^9}, 
+   3.978276309529367*^9, {3.98043892538406*^9, 
+   3.980438928097541*^9}},ExpressionUUID->"104daf2f-d850-49e4-acb0-\
+f2887edc3436"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"NotebookEvaluate", "[", "\n", 
+   RowBox[{
+    RowBox[{"FileNameJoin", "[", 
+     RowBox[{
+      RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<1-setup.nb\>\""}], 
+     "]"}], ",", "\n", " ", 
+    RowBox[{"EvaluationElements", "->", " ", "\"\<InitializationCell\>\""}]}],
+    "\n", " ", "]"}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.9804389458341084`*^9, 3.980438975817041*^9}, {
+  3.9819940295546923`*^9, 3.981994060696246*^9}, {3.981994287407154*^9, 
+  3.981994323182249*^9}},ExpressionUUID->"445aafe5-eb56-4f58-849b-\
+7cca4c6ae286"],
+
+Cell["\<\
+Since we are dealing with the tangent developable of the  twisted cubic \
+itself, the geodesic curvature is equal to the curvature.\
+\>", "Text",
+ CellChangeTimes->{{3.9782780614448223`*^9, 
+  3.978278114191332*^9}},ExpressionUUID->"e6238fc3-4f30-48b3-88da-\
+3a029284637c"],
+
+Cell[CellGroupData[{
+
+Cell["Finding the planar curve", "Section",
+ CellChangeTimes->{{3.97827812616602*^9, 
+  3.978278130418824*^9}},ExpressionUUID->"4c12c00e-4fc9-4ccf-b21d-\
+540c82764bf7"],
+
+Cell["\<\
+We now need to find a planar curve whose curvature function is the same as \
+that of the twisted cubic with the same speed function. It will be easier to \
+deal with the rate of the change of unitTangent than the true curvature \
+function.\
+\>", "Text",
+ CellChangeTimes->{{3.978278133027892*^9, 
+  3.978278192162918*^9}},ExpressionUUID->"bfbc1a84-85a0-4e9a-96eb-\
+22f2d9e556a6"],
+
+Cell[BoxData[
+ RowBox[{"phi", "=", 
+  RowBox[{"Integrate", "[", 
+   RowBox[{
+    RowBox[{"curvature", "*", "speed"}], ",", "t", ",", 
+    RowBox[{"Assumptions", "->", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"t", "\[Element]", "Reals"}], ",", 
+       RowBox[{"t", ">", "0"}]}], "}"}]}]}], "]"}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.978278197478129*^9, 3.978278237684497*^9}, {
+   3.978278267725464*^9, 3.978278272858858*^9}, 3.978278705385064*^9, {
+   3.978493464969915*^9, 3.978493466977447*^9}, {3.979010679263773*^9, 
+   3.9790106814199944`*^9}, {3.979033160174273*^9, 3.979033194661759*^9}},
+ CellLabel->"In[96]:=",ExpressionUUID->"91572ba4-ff26-4846-93b0-9c630cf40ced"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"h", " ", "=", " ", 
+    RowBox[{"{", 
+     RowBox[{"Integrate", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Cos", "[", "phi", "]"}], ",", " ", 
+         RowBox[{"Sin", "[", "phi", "]"}]}], "}"}], ",", " ", "t", ",", " ", 
+       RowBox[{"Assumptions", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"t", " ", "\[Element]", " ", "Reals"}], ",", " ", 
+          RowBox[{"t", " ", ">", " ", "0"}]}], "}"}]}]}], "]"}], "}"}]}], 
+   ";"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.9784934900555887`*^9, 3.978493497286811*^9}, {
+   3.979010687383193*^9, 3.979010696335753*^9}, 3.979033053684256*^9, {
+   3.979033177576109*^9, 3.9790331797675533`*^9}},
+ CellLabel->
+  "In[267]:=",ExpressionUUID->"19f4782a-4307-4d87-8875-9814fb541256"],
+
+Cell["\<\
+Okay, so Mathematica couldn\[CloseCurlyQuote]t quite do it in closed form. No \
+problem, we\[CloseCurlyQuote]ll do this last step numerically.\
+\>", "Text",
+ CellChangeTimes->{{3.978278616302321*^9, 
+  3.978278634644363*^9}},ExpressionUUID->"eda5e283-34c7-418b-a086-\
+e0ff96c538aa"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Numerical Earlier", "Section",
+ CellChangeTimes->{{3.97827812616602*^9, 3.978278130418824*^9}, {
+  3.97827992850421*^9, 3.9782799330177393`*^9}, {3.978280359121372*^9, 
+  3.978280364945118*^9}},ExpressionUUID->"061ea287-94df-47d6-8378-\
+aa0b39d70e7c"],
+
+Cell["\<\
+With some strange artifacts showing up in the images above, I will try \
+starting over, making numerical approximations for both phi and h.\
+\>", "Text",
+ CellChangeTimes->{{3.978282308351838*^9, 
+  3.978282340079563*^9}},ExpressionUUID->"f849259b-7b2d-4995-bb69-\
+4def1f80ede9"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ClearAll", "[", "h", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.9782803845706253`*^9, 3.978280389537881*^9}, {
+  3.979010749195799*^9, 3.9790107499576483`*^9}},
+ CellLabel->
+  "In[268]:=",ExpressionUUID->"a77704eb-040f-462a-9d93-39a15fd855aa"],
+
+Cell[BoxData[
+ RowBox[{"Plot", "[", 
+  RowBox[{"phi", ",", 
+   RowBox[{"{", 
+    RowBox[{"t", ",", "0", ",", "3"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.978280728527478*^9, 3.97828076073466*^9}, {
+  3.978281006958947*^9, 3.978281018093437*^9}, {3.97828126047081*^9, 
+  3.978281310723052*^9}, {3.9790107640802298`*^9, 3.979010764443818*^9}},
+ CellLabel->
+  "In[269]:=",ExpressionUUID->"7bbbe20c-28c4-42df-984d-c66f96f4b566"],
+
+Cell[BoxData[
+ RowBox[{"hInterp", "=", 
+  RowBox[{"NDSolve", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"h", "[", "0", "]"}], "==", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"h", "'"}], "[", "t", "]"}], "==", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Cos", "[", "phi", "]"}], ",", 
+          RowBox[{"Sin", "[", "phi", "]"}]}], "}"}], "*", "speed"}]}]}], 
+     "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", "h", ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"t", ",", 
+      RowBox[{"-", "10"}], ",", "10"}], "}"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.97828045148604*^9, 3.978280584760994*^9}, {
+  3.9782807961716013`*^9, 3.9782807977850523`*^9}, {3.978280869902803*^9, 
+  3.9782808840102882`*^9}, {3.9782809485808563`*^9, 3.978280976437036*^9}, {
+  3.9782810565174837`*^9, 3.9782810641443377`*^9}, {3.978281107986422*^9, 
+  3.978281148974663*^9}, {3.978281320495665*^9, 3.978281481049178*^9}, {
+  3.97828154935439*^9, 3.978281635111912*^9}, {3.97901077150591*^9, 
+  3.979010780717329*^9}, {3.979010869761092*^9, 3.979010870136338*^9}, {
+  3.9790109254049*^9, 3.979010927877555*^9}, {3.979033301601968*^9, 
+  3.979033331704813*^9}, {3.980439239012648*^9, 3.980439240603993*^9}},
+ CellLabel->"In[97]:=",ExpressionUUID->"22e019b2-cf89-422d-9d93-a2c28f62f04a"],
+
+Cell[BoxData[
+ RowBox[{"ParametricPlot", "[", 
+  RowBox[{
+   RowBox[{"Evaluate", "[", 
+    RowBox[{
+     RowBox[{"h", "[", "t", "]"}], "/.", "hInterp"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"t", ",", 
+     RowBox[{"-", "4"}], ",", "4"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.978281483580505*^9, 3.97828151097534*^9}, {
+  3.9782816111131163`*^9, 3.978281646267384*^9}, {3.978282449022991*^9, 
+  3.978282449191133*^9}, {3.979010788808593*^9, 3.9790107981543207`*^9}, {
+  3.9790108597002487`*^9, 3.979010872923616*^9}, {3.979033314911371*^9, 
+  3.979033316986483*^9}, {3.9804392470901423`*^9, 3.980439250261394*^9}},
+ CellLabel->"In[23]:=",ExpressionUUID->"7cf01823-892c-4d69-95a3-82c346124bf1"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{808, 673},
+WindowMargins->{{12, Automatic}, {Automatic, 24}},
+FrontEndVersion->"14.2 for Mac OS X ARM (64-bit) (December 26, 2024)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"3bf19080-3498-473c-97c4-231f7305f14c"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 227, 4, 96, "Title",ExpressionUUID->"104daf2f-d850-49e4-acb0-f2887edc3436"],
+Cell[806, 28, 601, 14, 106, "Input",ExpressionUUID->"445aafe5-eb56-4f58-849b-7cca4c6ae286",
+ InitializationCell->True],
+Cell[1410, 44, 283, 6, 55, "Text",ExpressionUUID->"e6238fc3-4f30-48b3-88da-3a029284637c"],
+Cell[CellGroupData[{
+Cell[1718, 54, 168, 3, 66, "Section",ExpressionUUID->"4c12c00e-4fc9-4ccf-b21d-540c82764bf7"],
+Cell[1889, 59, 389, 8, 77, "Text",ExpressionUUID->"bfbc1a84-85a0-4e9a-96eb-22f2d9e556a6"],
+Cell[2281, 69, 708, 15, 45, "Input",ExpressionUUID->"91572ba4-ff26-4846-93b0-9c630cf40ced",
+ InitializationCell->True],
+Cell[2992, 86, 841, 21, 29, "Input",ExpressionUUID->"19f4782a-4307-4d87-8875-9814fb541256"],
+Cell[3836, 109, 292, 6, 33, "Text",ExpressionUUID->"eda5e283-34c7-418b-a086-e0ff96c538aa"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4165, 120, 257, 4, 66, "Section",ExpressionUUID->"061ea287-94df-47d6-8378-aa0b39d70e7c"],
+Cell[4425, 126, 289, 6, 55, "Text",ExpressionUUID->"f849259b-7b2d-4995-bb69-4def1f80ede9"],
+Cell[4717, 134, 281, 6, 29, "Input",ExpressionUUID->"a77704eb-040f-462a-9d93-39a15fd855aa"],
+Cell[5001, 142, 434, 9, 29, "Input",ExpressionUUID->"7bbbe20c-28c4-42df-984d-c66f96f4b566"],
+Cell[5438, 153, 1564, 34, 188, "Input",ExpressionUUID->"22e019b2-cf89-422d-9d93-a2c28f62f04a",
+ InitializationCell->True],
+Cell[7005, 189, 709, 14, 29, "Input",ExpressionUUID->"7cf01823-892c-4d69-95a3-82c346124bf1"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
